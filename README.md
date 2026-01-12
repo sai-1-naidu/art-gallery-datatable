@@ -91,7 +91,8 @@ fetching or storing data from other pages.
 
 The application is deployed on Netlify.
 
-Live URL: <ADD_YOUR_DEPLOYED_LINK_HERE>
+Live URL: https://chimerical-dodol-4ebcb7.netlify.app/
+
 
 ---
 
