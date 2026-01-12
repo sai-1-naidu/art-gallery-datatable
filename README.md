@@ -1,73 +1,102 @@
-# React + TypeScript + Vite
+# Art Gallery DataTable
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React + TypeScript application that displays artwork data
+from the Art Institute of Chicago API using a PrimeReact DataTable.
 
-Currently, two official plugins are available:
+The application implements true server-side pagination and persistent row
+selection without prefetching or storing data from other pages.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React (Vite)
+- TypeScript
+- PrimeReact
+- PrimeFlex
+- Art Institute of Chicago Public API
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📡 API Used
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+https://api.artic.edu/api/v1/artworks?page=1
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📊 Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Server-side pagination
+- Lazy loading of data
+- Checkbox row selection
+- Custom row selection using overlay panel
+- Persistent selection across pages
+- No prefetching of API data
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🔁 Server-Side Pagination Strategy
+
+The application fetches artwork data page by page from the API.
+Only the current page data is stored in memory.
+
+Whenever the user changes the page, a new API request is made to fetch
+the corresponding page data.
+
+This ensures scalability and prevents unnecessary memory usage.
+
+---
+
+## ✅ Persistent Row Selection Strategy
+
+The application does not store row objects or data from other pages.
+
+Row selection persistence is achieved by tracking selected and deselected
+row IDs using `Set<number>`.
+
+For each page:
+- Only the current page data is fetched
+- Selected rows are derived dynamically by matching row IDs
+- No additional API calls are made for selection
+
+This approach ensures correct selection behavior without prefetching
+or caching page data.
+
+---
+
+## 🧮 Custom Row Selection
+
+The custom row selection feature allows users to select a specified number
+of rows from the current page only.
+
+If the entered number exceeds the number of available rows on the page,
+selection is limited to the current page.
+
+This behavior strictly follows the assignment constraints and avoids
+fetching or storing data from other pages.
+
+---
+
+## 🧪 Testing Scenarios
+
+- Selecting rows using checkboxes
+- Selecting rows using custom input
+- Navigating between pages and returning
+- Ensuring selection persists correctly
+- Verifying no additional API calls are made
+
+---
+
+## 🌐 Deployment
+
+The application is deployed on Netlify.
+
+Live URL: <ADD_YOUR_DEPLOYED_LINK_HERE>
+
+---
+
+## 📦 Installation & Setup
+
+```bash
+npm install
+npm run dev
